@@ -14,7 +14,7 @@ totalSalary=0
 dailyWage=0
 
 
-declare -a empWageArray
+declare -A empWageDict
 
 
 function getWorkingHours() {
@@ -37,7 +37,7 @@ do
    ((totalWorkingDays++))
    getWorkingHours
    dailyWage=$((workingHrs*EMP_RATE_PER_HOUR))
-   empWageArray[(($totalWorkingDays-1))]=$dailyWage
+   empWageDict[day$totalWorkingDays]=$dailyWage
 
 
    totalEmpHrs=$((totalEmpHrs+workingHrs))
@@ -47,10 +47,15 @@ done
 totalSalary=$((totalEmpHrs*EMP_RATE_PER_HOUR))
 
 
-empWageArray[$TOTAL_WORKING_DAYS]=$totalSalary
+empWageDict[totalSalary]=$totalSalary
+
+
+for key in ${!empWageDict[@]}
+do
+   echo $key " : " ${empWageDict[$key]}
+done
 
 
 echo "Total Working Days: " $totalWorkingDays
 echo "Total Working Hours: " $totalEmpHrs
-echo "Monthly Salary is: " ${empWageArray[$TOTAL_WORKING_DAYS]}
-echo "Wage by Days: " ${empWageArray[@]
+echo "Monthly Salary is: " ${empWageDict[totalSalary]}
