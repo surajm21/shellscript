@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash 
 
 
 IS_FULL_TIME=1
