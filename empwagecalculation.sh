@@ -1,21 +1,31 @@
-#!/bin/bash
+#!/bin/bash -x
 
 
 isFullTime=1
 isPartTime=2
 empRatePerHr=25
-randomCheck=$((RANDOM%3))
+totalWorkingDays=5
+totalSalary=0
 
 
-case $randomCheck in
-   $isFullTime) workingHrs=8 ;;
-   $isPartTime) workingHrs=4 ;;
-   *) workingHrs=0
-esac
+for ((day=1; day<=totalWorkingDays; day++))
+do
+   empCheck=$((RANDOM%3))
 
 
-salary=$((workingHrs*empRatePerHr))
+   case $empCheck in
+      $isFullTime) workingHrs=8 ;;
+      $isPartTime) workingHrs=4 ;;
+      *) workingHrs=0
+   esac
 
 
-echo "Working Hours: " $workingHrs
-echo "Salary is: " $salary
+   salary=$((workingHrs*empRatePerHr))
+   totalSalary=$((totalSalary+salary))
+
+
+done
+
+
+echo "Total Working Days: " $totalWorkingDays
+echo "Monthly Salary is: " $totalSalary
